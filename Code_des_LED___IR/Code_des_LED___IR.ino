@@ -57,8 +57,16 @@ decode_results results;
 
 // Define the array of leds
 CRGB leds[NUM_LEDS];
-int depart = 22;
+
+int depart = 0;
 int arrive = 0;
+
+// NFC section
+
+// General items
+int buildingID [12];
+char buildingName [12][16];
+// NFC elements (to be added)
 
 void setup() { 
     // Uncomment/edit one of the following lines for your leds arrangement.
@@ -257,7 +265,9 @@ void loop() {
     
 
     // NFC
-
+    if(valueIR == funcStop){
+      // NFC reading (to be added)
+    }
     // Shut down
     if(valueIR == stopIR){
       for(int i = 0; i < NUM_LEDS; i++){
