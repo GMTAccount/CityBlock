@@ -35,7 +35,7 @@ double touch_7 = 16728765;
 double touch_8 = 16730805;
 double touch_9 = 16732845;
 
-long valueIR = 0;
+double valueIR = 0;
 int sentValue = 0;
 int cpt = 0;
 int currentValue = 0;
@@ -110,60 +110,75 @@ void setup() {
     // FastLED.addLeds<DOTSTAR, DATA_PIN, CLOCK_PIN, RGB>(leds, NUM_LEDS);  // BGR ordering is typical
     FastLED.addLeds<APA102, DATA_PIN, CLOCK_PIN, RGB>(leds, NUM_LEDS);  // BGR ordering is typical
     // FastLED.addLeds<SK9822, DATA_PIN, CLOCK_PIN, RGB>(leds, NUM_LEDS);  // BGR ordering is typical
+    irrecv.enableIRIn(); // Initialise le recepteur
+    Serial.begin(9600);
+          /*for(int i = 0; i < NUM_LEDS; i++){
+            leds[i] = CRGB::Red;
+        FastLED.show();
+        delay(100);
+        leds[i] = CRGB::Green;
+        FastLED.show();
+      }
+      for(int i = 0; i < NUM_LEDS; i++){
+        leds[i] = CRGB::Purple;
+      }
+      FastLED.show();
+      delay(500);
+      for(int i = 0; i < NUM_LEDS; i++){
+        leds[i] = CRGB::Black;
+      }
+      FastLED.show();*/
 }
 
 void loop() { 
   while(!irrecv.decode(&results)){
     }
-    do{
-          if (irrecv.decode(&results)) {
           valueIR = (results.value);
           irrecv.resume(); // Recoit la valeur suivant
-          //Serial.println(valueIR);
-          }
-        }
-    while(valueIR == -1);
-
+    Serial.println(valueIR);
     // Itinerary
     if(valueIR == touch_1 || valueIR == touch_2 || valueIR == touch_3 || valueIR == touch_4 || valueIR == touch_5 || valueIR == touch_6 || valueIR == touch_7 || valueIR == touch_8 || valueIR == touch_9 || valueIR == touch_0){
-      while(valueIR == touch_1 || valueIR == touch_2 || valueIR == touch_3 || valueIR == touch_4 || valueIR == touch_5 || valueIR == touch_6 || valueIR == touch_7 || valueIR == touch_8 || valueIR == touch_9 || valueIR == touch_0){
+      depart = 0;
+      arrive = 0;
+      do
+      {
         if(valueIR == touch_0)
         {
           currentValue = 0;
         }
-        if(valueIR == touch_1)
+        else if(valueIR == touch_1)
         {
           currentValue = 1;
         }
-        if(valueIR == touch_2)
+        else if(valueIR == touch_2)
         {
           currentValue = 2;
         }
-        if(valueIR == touch_3)
+        else if(valueIR == touch_3)
         {
           currentValue = 3;
         }
-        if(valueIR == touch_4)
+        else if(valueIR == touch_4)
         {
           currentValue = 4;
         }
-        if(valueIR == touch_5)
+        else if(valueIR == touch_5)
         {
           currentValue = 5;
         }
-        if(valueIR == touch_6)
+        else if(valueIR == touch_6)
         {
           currentValue = 6;
         }
-        if(valueIR == touch_7)
+        else if(valueIR == touch_7)
         {
           currentValue = 7;
         }
-        if(valueIR == touch_8)
+        else if(valueIR == touch_8)
         {
           currentValue = 8;
         }
-        if(valueIR == touch_9)
+        else if(valueIR == touch_9)
         {
           currentValue = 9;
         }
@@ -172,58 +187,16 @@ void loop() {
         while(!irrecv.decode(&results)){
         }
         do{
-          if (irrecv.decode(&results)) {
+          while(!irrecv.decode(&results)) {
+            }
           valueIR = (results.value);
           irrecv.resume(); // Recoit la valeur suivant
-          //Serial.println(valueIR);
-          }
         }
         while(valueIR == -1);
       }
-            while(valueIR == touch_1 || valueIR == touch_2 || valueIR == touch_3 || valueIR == touch_4 || valueIR == touch_5 || valueIR == touch_6 || valueIR == touch_7 || valueIR == touch_8 || valueIR == touch_9 || valueIR == touch_0){
-        if(valueIR == touch_0)
-        {
-          currentValue = 0;
-        }
-        if(valueIR == touch_1)
-        {
-          currentValue = 1;
-        }
-        if(valueIR == touch_2)
-        {
-          currentValue = 2;
-        }
-        if(valueIR == touch_3)
-        {
-          currentValue = 3;
-        }
-        if(valueIR == touch_4)
-        {
-          currentValue = 4;
-        }
-        if(valueIR == touch_5)
-        {
-          currentValue = 5;
-        }
-        if(valueIR == touch_6)
-        {
-          currentValue = 6;
-        }
-        if(valueIR == touch_7)
-        {
-          currentValue = 7;
-        }
-        if(valueIR == touch_8)
-        {
-          currentValue = 8;
-        }
-        if(valueIR == touch_9)
-        {
-          currentValue = 9;
-        }
-        arrive = arrive*pow(10,cpt) + currentValue;
-        cpt++;
-        while(!irrecv.decode(&results)){
+      while(valueIR != eq);
+      Serial.println(depart);
+      while(!irrecv.decode(&results)){
         }
         do{
           if (irrecv.decode(&results)) {
@@ -233,54 +206,126 @@ void loop() {
           }
         }
         while(valueIR == -1);
+      currentValue = 0;
+      do
+      {
+        if(valueIR == touch_0)
+        {
+          currentValue = 0;
+        }
+        else if(valueIR == touch_1)
+        {
+          currentValue = 1;
+        }
+        else if(valueIR == touch_2)
+        {
+          currentValue = 2;
+        }
+        else if(valueIR == touch_3)
+        {
+          currentValue = 3;
+        }
+        else if(valueIR == touch_4)
+        {
+          currentValue = 4;
+        }
+        else if(valueIR == touch_5)
+        {
+          currentValue = 5;
+        }
+        else if(valueIR == touch_6)
+        {
+          currentValue = 6;
+        }
+        else if(valueIR == touch_7)
+        {
+          currentValue = 7;
+        }
+        else if(valueIR == touch_8)
+        {
+          currentValue = 8;
+        }
+        else if(valueIR == touch_9)
+        {
+          currentValue = 9;
+        }
+        else{
+          currentValue = -1;
+        }
+        while(!irrecv.decode(&results)){
+        }
+        do{
+          if (irrecv.decode(&results)) {
+          valueIR = (results.value);
+          Serial.println(valueIR);
+          irrecv.resume(); // Recoit la valeur suivant
+          //Serial.println(valueIR);
+          }
+        }
+        while(valueIR == -1);
+        if(valueIR != eq){
+          arrive = arrive*pow(10,cpt) + currentValue;
+          cpt++;
+        }
       }
+      while(valueIR != eq);
+      Serial.println(arrive);
       if(depart > arrive){
         int inverse = depart;
         depart = arrive;
         arrive = inverse;
       }
-      for(int i = 0; i < NUM_LEDS; i++){
+      /*for(int i = 0; i < NUM_LEDS; i++){
         leds[i] = CRGB::Black;
       }
-      FastLED.show();
+      FastLED.show();*/
       int retour1 = arrive - depart;
       int retour2 = NUM_LEDS - 1 - arrive + depart;
-      if(retour1 > retour2){
+      /*if(retour1 > retour2){
         for(int i = 0; i <= depart; i++){
-          leds[i] = CRGB::Green;
+          leds[i] = CRGB::White;
       }
       for(int i = arrive; i < NUM_LEDS; i++){
-        leds[i] = CRGB::Green;
+        leds[i] = CRGB::White;
 
       }
-    FastLED.show();
+      //FastLED.show();
     }
-  else{
-    for(int i = depart; i <= arrive; i++){
-      leds[i] = CRGB::Green;
-    }
-    FastLED.show();
-  }
+    else{
+      for(int i = depart; i <= arrive; i++){
+        leds[i] = CRGB::White;
+      }
+      FastLED.show();
+    }*/
     }
     
 
     // NFC
-    if(valueIR == funcStop){
+    if(valueIR == stReset){
       // NFC reading (to be added)
     }
+    
     // Shut down
-    if(valueIR == stopIR){
+    /*if(valueIR == stopIR){
+      for(int i = 0; i < NUM_LEDS; i++){
+        leds[i] = CRGB::Red;
+        FastLED.show();
+        delay(100);
+        leds[i] = CRGB::Green;
+        FastLED.show();
+      }
+      for(int i = 0; i < NUM_LEDS; i++){
+        leds[i] = CRGB::Blue;
+      }
+      FastLED.show();
+      delay(500);
       for(int i = 0; i < NUM_LEDS; i++){
         leds[i] = CRGB::Black;
       }
       FastLED.show();
-    }
+    }*/
     valueIR = 0;
     sentValue = 0;
     cpt = 0;
-
-
-    
-
-  delay(2000);
+  
 }
